@@ -145,12 +145,12 @@
                     </view>
                     <connections>
                         <outlet property="blueColorValueLabel" destination="QMn-Mf-zXY" id="SxC-aA-jLU"/>
-                        <outlet property="blueSliderValueLabel" destination="lKR-eF-fDC" id="3Gd-fb-k72"/>
+                        <outlet property="blueSlider" destination="lKR-eF-fDC" id="nlq-LG-TM3"/>
                         <outlet property="greenColorValueLabel" destination="iAU-KY-jtx" id="mQy-rh-N5O"/>
-                        <outlet property="greenSliderValueLabel" destination="lm0-mE-n3d" id="otA-bp-JDl"/>
+                        <outlet property="greenSlider" destination="lm0-mE-n3d" id="1c2-in-qGt"/>
                         <outlet property="paletteView" destination="7pj-bP-52Z" id="oUL-jb-1OQ"/>
                         <outlet property="redColorValueLabel" destination="VXx-BZ-KvC" id="4HA-LY-1gA"/>
-                        <outlet property="redSliderValueLabel" destination="WkT-X1-bHu" id="HEA-ss-1nd"/>
+                        <outlet property="redSlider" destination="WkT-X1-bHu" id="OD0-tX-RCk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

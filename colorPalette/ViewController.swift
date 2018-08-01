@@ -13,60 +13,91 @@ class ViewController: UIViewController {
     @IBOutlet weak var redColorValueLabel: UILabel!
     @IBOutlet weak var greenColorValueLabel: UILabel!
     @IBOutlet weak var blueColorValueLabel: UILabel!
-    @IBOutlet weak var paletteView: UIView!
-    @IBOutlet weak var redSliderValueLabel: UISlider!
-    @IBOutlet weak var greenSliderValueLabel: UISlider!
-    @IBOutlet weak var blueSliderValueLabel: UISlider!
 
-    let defaultMinValue: Float = 0.0
-    let defaultMaxValue: Float = 255.0
+    @IBOutlet weak var paletteView: UIView!
+
+    @IBOutlet weak var redSlider: UISlider!
+    @IBOutlet weak var greenSlider: UISlider!
+    @IBOutlet weak var blueSlider: UISlider!
+
+    let defaultMinColorValue: Float = 0
+    let defaultMaxColorValue: Float = 255
+    var defaultMediumColorValue: Float {
+        return (defaultMaxColorValue - defaultMinColorValue) / 2 + defaultMinColorValue
+    }
+    var slidersArray: [UISlider] {
+        return [redSlider, greenSlider, blueSlider]
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        redColorValueLabel.text = "\(Int(redSliderValueLabel.value))"
-        greenColorValueLabel.text = "\(Int(greenSliderValueLabel.value))"
-        blueColorValueLabel.text = "\(Int(blueSliderValueLabel.value))"
-        changedColor()
+        initialSetupForSliders()
+        updateColorView()
     }
 
     @IBAction func minPaletteValueButton(_ sender: Any) {
-        addedValueLabel(value: defaultMinValue)
-        changedColor()
+        updateSlidersValue(defaultMinColorValue)
+        updateSlidersLabels()
+        updateColorView()
     }
 
     @IBAction func mediumPaletteValueButton(_ sender: Any) {
-        addedValueLabel(value: (defaultMaxValue - defaultMinValue) / 2 + defaultMinValue)
-        changedColor()
+        updateSlidersValue(defaultMediumColorValue)
+        updateSlidersLabels()
+        updateColorView()
     }
 
     @IBAction func maxPaletteValueButton(_ sender: Any) {
-        addedValueLabel(value: defaultMaxValue)
-        changedColor()
+        updateSlidersValue(defaultMaxColorValue)
+        updateSlidersLabels()
+        updateColorView()
     }
 
     @IBAction func redChangedSlider(_ sender: Any) {
-        changedColor()
+        updateSlidersLabels()
+        updateColorView()
     }
 
     @IBAction func greenChangedSlider(_ sender: Any) {
-        changedColor()
+        updateSlidersLabels()
+        updateColorView()
     }
 
     @IBAction func blueChangedSlider(_ sender: Any) {
-        changedColor()
+        updateSlidersLabels()
+        updateColorView()
     }
 
-    func changedColor() {
-        paletteView.backgroundColor = UIColor(red: CGFloat(redSliderValueLabel.value / 255.0), green: CGFloat(greenSliderValueLabel.value / 255.0), blue: CGFloat(blueSliderValueLabel.value / 255.0), alpha: 1.0)
-        redColorValueLabel.text = "\(Int(redSliderValueLabel.value))"
-        greenColorValueLabel.text = "\(Int(greenSliderValueLabel.value))"
-        blueColorValueLabel.text = "\(Int(blueSliderValueLabel.value))"
+    func updateColorView() {
+        let redValue   = CGFloat(redSlider.value / defaultMaxColorValue)
+        let greenValue = CGFloat(greenSlider.value / defaultMaxColorValue)
+        let blueValue  = CGFloat(blueSlider.value / defaultMaxColorValue)
+        paletteView.backgroundColor = UIColor(red: redValue, green: greenValue, blue: blueValue, alpha: 1.0)
     }
 
-    func addedValueLabel(value: Float) {
-        redSliderValueLabel.value = value
-        greenSliderValueLabel.value = value
-        blueSliderValueLabel.value = value
+    func updateSlidersLabels() {
+        redColorValueLabel.text = "\(Int(redSlider.value))"
+        greenColorValueLabel.text = "\(Int(greenSlider.value))"
+        blueColorValueLabel.text = "\(Int(blueSlider.value))"
+    }
+
+    func updateSlidersValue(_ value: Float) {
+        for slider in slidersArray {
+            slider.value = value
+        }
+    }
+
+    func setupBoundaryValue(for slider: UISlider) {
+        slider.minimumValue = defaultMinColorValue
+        slider.maximumValue = defaultMaxColorValue
+    }
+
+    func initialSetupForSliders() {
+        for slider in slidersArray {
+            setupBoundaryValue(for: slider)
+        }
+        updateSlidersValue(defaultMediumColorValue)
+        updateSlidersLabels()
     }
 }
 
